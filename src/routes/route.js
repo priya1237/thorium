@@ -1,33 +1,53 @@
-
-const express = require('express');
+const express= require('express');
 const router = express.Router();
-const obj=require('../logger/logger.js')
-const helper =require("../util/helper")
-const formatter= require("../validator/formatter")
-const lod = require("../lodashMod/lod")
 
 
+// 1. this API fetch all movies from array
+
+router.get('/movies',function(req, res){
+    res.send('["LALALAND", "DEAR COMRADE", "MASAN", "URI", "NEIL BATE SANNATA"]')
+})
+ 
+// 2.
+ router.get('/movies/:movieId', function(req, res){
+     mov=["LALALAND", "DEAR COMRADE", "MASAN", "URI", "NEIL BATE SANNATA"]
+     let value = req.params.movieId;
+     if(value>mov.length-1){
+         res.send("doesn't xsist")
+     }else{
+         res.send(mov[value])
+     }
+ })
 
 
-router.get('/test-me', function (req, res) {
-     obj.welcome()
-    res.send('My first ever api!')
-    helper.printDate()
-    helper.printMonth()
-    helper.getBatchInfo()
-    formatter.trim()
-    formatter.changetoLowerCase()
-    formatter.changetoUpperCase()
+// 3.
+
+
+router.get('/films', function (req, res) {
+   
+    res.send([ { id: 1, name: 'The Shining' }, {id: 2, name: 'Incendies'}, { id: 3, name: 'Rang de Basanti' }, {id: 4, name:'Finding Demo' }])
+   
 });
 
-router.get("/hello", function(req, res){
-    res.send("hello world")
-    console.log(lod.arrSpliter())
-    console.log(lod.giveTail())
-    console.log(lod.arrUnion())
-    console.log(lod.getPairs())
+// 4.
+ router.get('/films/:filmId', function (req, res){
+ let movi=[{ id: 1, name: 'The Shining' }, {id: 2, name: 'Incendies'}, { id: 3, name: 'Rang de Basanti' }, {id: 4, name:'Finding Demo' }]
+ let value= req.params.filmId;
+ let found= false;
+ for(i=0; i<movi.length;i++){
+  if (movi[i].id==value){
+      found=true
+      res.send(movi[i])
+      break;
+  }   
+ }
 
-})
+ if (found==false){
+     res.send('No Movie exists with this id')
+ }
+});
+
+
 
 
 
