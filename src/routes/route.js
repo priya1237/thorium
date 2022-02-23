@@ -17,9 +17,6 @@ router.get("/test-api" , function(req, res) {
 })
 
 
-router.get("/test-api-2" , function(req, res) {
-    res.send("hi FunctionUp. This is another cool API")
-})
 
 
 router.get("/test-api-3" , function(req, res) {
